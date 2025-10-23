@@ -1,1 +1,1 @@
-# Apple Design Website with React and GSAP
+# Apple Design Website with React, Three.js and GSAP

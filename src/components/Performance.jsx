@@ -21,7 +21,7 @@ const Performance = () => {
         {
           opacity: 1,
           y: 0,
-        //   duration: 0.8,
+          duration: 1,
           ease: "power1.out",
           scrollTrigger: {
             trigger: ".content p",

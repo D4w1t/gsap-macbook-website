@@ -1,19 +1,23 @@
 import {useMediaQuery} from "react-responsive";
 import {useGSAP} from "@gsap/react";
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 
 const Showcase = () => {
     const isTablet = useMediaQuery({ query: '(max-width: 1024px)'});
 
     useGSAP(() => {
+        gsap.registerPlugin(ScrollTrigger);
         if(!isTablet) {
             const timeline = gsap.timeline({
                 scrollTrigger: {
                     trigger: '#showcase',
                     start: 'top top',
-                    end: 'bottom top',
+                    end: () => '+=' + (document.querySelector('#showcase').offsetHeight * 0.5),
                     scrub: true,
                     pin: true,
+                    pinSpacing: true,
+                    anticipatePin: 1,
                 }
             });
 
@@ -21,6 +25,11 @@ const Showcase = () => {
                 .to('.mask img', {
                     transform: 'scale(1.1)'
                 }).to('.content', { opacity: 1, y: 0, ease: 'power1.in' });
+
+            // Force ScrollTrigger to recalculate after layout is ready
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 300);
         }
     }, [isTablet])
 
@@ -47,10 +56,13 @@ const Showcase = () => {
                                 . M4 powers
                             </p>
                             <p>
-                                It drives Apple Intelligence on iPad Pro, so you can write, create, and accomplish more with ease. All in a design that’s unbelievably thin, light, and powerful.
+                                It drives Apple Intelligence on iPad Pro, so you can write, create, and accomplish 
+                                more with ease. All in a design that’s unbelievably thin, light, and powerful.
                             </p>
                             <p>
-                                A brand-new display engine delivers breathtaking precision, color accuracy, and brightness. And a next-gen GPU with hardware-accelerated ray tracing brings console-level graphics to your fingertips.
+                                A brand-new display engine delivers breathtaking precision, color accuracy, and 
+                                brightness. And a next-gen GPU with hardware-accelerated ray tracing brings 
+                                console-level graphics to your fingertips.
                             </p>
                             <p className="text-primary">Learn more about Apple Intelligence</p>
                         </div>
